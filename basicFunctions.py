@@ -228,4 +228,88 @@ A = [
 b = [5, 16, 22, 15]
 
 x = backSubstitute(A, b)
-print("Answer: " + str(x))
+# print("Answer: " + str(x))
+
+def printMatrix(A):
+    print('\n'.join([''.join(['{:13.5g}'.format(item) for item in row])
+      for row in A]))
+
+testMatrix = [[1,2,3], [4,5,6], [7,8,9]]
+printMatrix(testMatrix)
+
+#works
+def vectorSubtraction(x,y):
+    """
+    Computes the subtraction between two vectors
+
+    This function takes two vectors, deep copies one of the vectors to result, and iterates over the vectors subtracts the first vector passed in from
+    the second vector and stores it into result
+
+    Args:
+        x: a list of numbers as a vector
+        y: a list of numebrs as a vector
+
+    Returns:
+        A vector that is the result from the vector subtraction of  x - y
+    """
+    result = copy.deepcopy(x)
+    for element in range(len(x)):
+        result[element] = x[element] - y[element]
+    return result
+
+#works
+def matrixVectorMult(A, x):
+    """
+    Computes the multiplication of a matrix and a vector
+
+    This function takes a matrix a vector, creates a result vector with the length of x, iterates through the columns of the
+    matrix and iterates through the elements of each column, and stores the result of the current element of A times the current
+    element of x into the current element of result
+
+    Args:
+        A: a matrix represented as a list of column vectors
+        x: a list of numbers as a vector
+
+    Returns:
+        a vector as a list of numbers
+    """
+    result = [0]*len(x)
+    for i in range(len(A)):
+        result[i]=0
+        for j in range(len(A[0])):
+            result[i] = result[i] + (A[i][j] * x[j])
+    return result
+
+testVector = [1,2,3]
+print(matrixVectorMult(testMatrix, testVector))
+
+
+def gsMod(A):
+    length = len(A)
+    R = [0] * length
+    Q = [0] * length
+    V = [0] * length
+
+    for i in range(length):
+        R[i] = [0] * length
+        Q[i] = [0] * length
+        V[i] = [0] * length
+    for j in range(len(A)):
+        V[j] = A[j]
+    for j in range(len(V)):
+        R[j][j] = two_norm(V[j])
+        Q[j] = scalarVectorMulti((1 / (R[j][j])), V[j])
+
+        for k in range(j + 1, len(V)):
+            R[j][k] = dotProduct(Q[j], V[k])
+            x = scalarVectorMulti(R[j][k], Q[j])
+            V[k] = vectorSubtraction(V[k], x)
+    print("Q (actual):")
+    printMatrix(Q)
+    print("R (actual):")
+    printMatrix(R)
+    return Q, R
+
+x = [1,2,3,4,5]
+x = vandermonde4(x)
+gsMod(x)
