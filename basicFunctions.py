@@ -1,134 +1,62 @@
 import copy
 
-"""
-What do we have? (Input)
-    A vector of length n
-What do we want? (output)
-    A scalar (which is the z-norm of our vector)
-How do we get there?
-    Sum the squares of the elements of our vector, then take square
-    root of our sum. 
-
-Calculates the 2-norm of a vector
-
-Sums the squares of the elemtents of a given vector and returns the root of the sum
-
-Args:
-    Vector: A list of numbers representing a vector.
-Returns:
-    A scalar which is the 2-norm of the given vector.
-"""
 
 
+#works
 def two_norm(vector):
+    """
+    Computes the two norm of a vector
+
+    This function sums the squares of the elements of the vector, then takes the square root of the sum
+
+    Args:
+        vector: a list of numbers as a vector
+
+    Returns:
+        A scalar which is the 2-norm of the given vector
+    """
     result = 0
     for element in range(len(vector)):
         result = result + (vector[element] ** 2)
     result = result ** (1 / 2)
-    # print(result)
+    print(result)
     return result
 
 
-test_vector01 = [2, 2, 2, 2]
 
-two_norm(test_vector01)
+#works
+def conjugate(complex):
+    """
+    Computes the conjugate of a complex number
 
-########################################################
-"""
-Write and implement an algorithm which takes a vector and 
-returns the normalized version (w/ respect to z-norm)
-
-x, x/||x||
-"""
-"""
-Pseudo Code
-def normalize(vector):
-    norm = two_norm(vector)
-    if (norm == 0):
-        print("Invalid input")
-    elif (norm == 1):
-        return vector
-    else:
-        return scalar-vector-multiply((1/norm), vector)
-"""
-
-"""
-Args:
-    scalar: A number
-    vector: A list of numbers
-"""
-
-
-def normalize(vector):
-    """Normalizes a given vector
-
-    Checks to see if the vector is normal or the zero vector. If not
-    the vector is divided by its norm.
+    The function takes a complex number, stores the real value of the complex number into the result, and result is subtracted by
+    the imaginary part of the complex number
 
     Args:
-        Vector: A list of numbers representing a vector.
+        complex: A complex number (e.g. 4+2j)
+
     Returns:
-        A normalized vector if the input vector was not the zero vector.
-        Prints an error otherwise.
+        The conjugate of a complex number, as a scalar
     """
-
-    norm = two_norm(vector)
-    if (norm == 0):
-        print("Invalid input")
-    elif (norm == 1):
-        return vector
-    else:
-        return scalarVecMulti((1 / norm), vector)  # what is that function?
-
-
-########################################################################################
-
-"""
-Write and implement an algorithm to compute matrix vector multiplication
-
-What do we have? (Input)
-    An mxn matrix and an n vector
-
-What do we want? (Output)
-    An m vector representing the matrix vector multiplication
-
-How do we get there? (algorithm)
-    Multiplying each column of the matrix by the corresponding element of the vector
-
-
-Pseudo code
-    def matVec(matrix, vector)
-        result = [0] * len(matrix[0])
-        for element in range(len(vector)):
-            result = vectorAdd(result, scalarVecMulti(vector[element], matrix[element]))
-        return result
-
-"""
-
-"""
-Write and implement an algorithm to compute the conjugate
-
-What do we have?
-    - A complex number
-
-What do we want?
-    - The conjugate of the complex number
-
-How do we want to get there?
-    - We will get the real number of the complex number and subtract it with the imaginary number 
-"""
-
-
-def conjugate(complex):
     result = complex.real
     result = result - (complex.imag)
     return result
 
 
-# print(conjugate(3+3j))
-
-
+#works
 def transpose(matrix):
+    """
+    Computes the transpose of the matrix
+
+    This function takes a matrix, creates a result matrix and a temporary list, and loops through the matrix and stores the row of
+    the matrix into temp and appends it to the result matrix
+
+    Args:
+        matrix: A matrix represented as a list of column vectors
+
+    Returns:
+        The transpose of the matrix whose rows are now the columns, represented as a list of column vectors
+    """
     result = []
     for i in range(len(matrix[0])):
         temp = []
@@ -138,15 +66,23 @@ def transpose(matrix):
     return result
 
 
-# matrix = [[1+2j,2+1j,3], [4,5,6], [7,8,9]]
+complexMatrix = [[1+2j,2+1j,3], [4,5,6], [7,8,9]]
 matrix = [[1, 2], [3, 4], [5, 6]]
-print(transpose(matrix))
 
 
-# print(transpose(transpose(matrix)))
-
-
+#works
 def conjugateTranspose(matrix):
+    """
+    Computes the conjugate transpose of a matrix
+
+    This function takes a matrix, computes the transpose of the matrix, then iterates through each element and conjugates the value
+
+    Args:
+        matrix: A matrix represented as a list of column vectors
+
+    Returns:
+        The conjugate transpose of a matrix represented as a list of column vectors
+    """
     result = transpose(matrix)
     for iterator in range(len(matrix)):
         for element in range(len(matrix[0])):
@@ -154,12 +90,20 @@ def conjugateTranspose(matrix):
     return result
 
 
-print("conjugate transpose")
-print(conjugateTranspose(matrix))
 
-
-# returns a vector columns
+#works
 def vandermonde4(vector):
+    """
+    Computes the vandermonde matrix from a vector
+
+    This function takes a vector, creates a temporary list and stores the respective element to its respective exponent, then appends that
+    temporary list to the result matrix
+
+    Args:
+        vector: a list of numbers as a vector
+    Returns:
+        a vandermonde matrix of degree 4 as a list column vectors
+    """
     result = []
     for exponent in range(5):
         temp = []
@@ -169,40 +113,39 @@ def vandermonde4(vector):
     return result
 
 
-print(vandermonde4([2, 3, 4]))
-
-
-def backsub(matrix, vector):
-    result = vector
-    for iterator in range(len(matrix[0])):
-        print("result is")
-        print(result)
-        alpha = (len(matrix[0]) - 1)
-        sum = 0
-        for k in range(((alpha - iterator) + 1), (len(matrix) - 1)):
-            sum += (matrix[k][alpha - iterator] * result[k])
-        print("Changing result")
-        result[alpha - iterator] = (vector[alpha - iterator] - sum) * (1 / matrix[alpha - iterator][alpha - iterator])
-    return result
-
 
 def scalarVectorMulti(scalar, vector):
+    """
+    Computes the multiplication of a scalar and a vector
+
+    This function takes a scalar and a vector, and multiplies each element in the vector by the sclar.
+
+    Args:
+        scalar: a scalar value
+        vector: a list of numbers as a vector
+
+    Returns:
+        A vector whose elements have been multiplied by the scalar value
+    """
     result = vector
     for iterator in range(len(vector)):
         result[iterator] *= scalar
     return result
 
 
-testMatrix = [[3, 2, 1], [0, 1, 2], [0, 0, 2]]
-testVector = [4, 6, 8]
-# expected answer: [-11, 3, 0]
-
-print(backsub(testMatrix, testVector))
-
-
-# print(scalarVectorMulti(2, [1,2,3]))
-
 def dotProduct(vector1, vector2):
+    """
+    Computes the dot product of two vectors
+
+    This function takes two vectors and multiplies each element with the corresponding element in the other vector
+
+    Args:
+        vector1: a list of numbers as a vector
+        vector2: a list of numbers as a vector
+
+    Returns:
+        a scalar which is the dot product of the two vectors
+    """
     result = 0
     for element in range(len(vector1)):
         result += (vector1[element] * vector2[element])
@@ -210,6 +153,18 @@ def dotProduct(vector1, vector2):
 
 
 def zeroMatrix(matrix):
+    """
+    Computes the zero matrix with the same dimensions as the matrix passed in
+
+    This function takes a matrix, has a result matrix do a deep copy of the matrix, then sets every element in the
+    result matrix to 0
+
+    Args:
+        A matrix that is represented as a list of column vectors
+
+    Returns:
+        A zero matrix as a list of column vectors
+    """
     result = copy.deepcopy(matrix)
     index = -1
     for column in matrix:
@@ -219,43 +174,6 @@ def zeroMatrix(matrix):
     return result
 
 
-# print(dotProduct([1,2,3], [4,5,6]))
-
-def vectorSubtraction(vector1, vector2):
-    for element in range(len(vector1)):
-        vector1[element] -= vector2[element]
-    return vector1
-
-
-vector1 = [4, 5, 6]
-vector2 = [1, 2, 3]
-print("subtraction")
-print(vectorSubtraction(vector1, vector2))
-print("everything below this is mgs")
-
-
-# def modifiedGS(A):
-#     v = copy.deepcopy(A)
-#     r = zeroMatrix(A)
-#     q = copy.deepcopy(A)
-#     for j in range(len(A)):
-#         r[j][j] = two_norm(v[j])
-#         q[j] = scalarVectorMulti((1/r[j][j]), v[j])
-#         for k in range((j+1), len(A)):
-#             r[j][k] = dotProduct(q[j], v[k])
-#             v[k] = vectorSubtraction(v[k], scalarVectorMulti(r[j][k], q[k]))
-#     print("q is ")
-#     print(q)
-#     print("R is ")
-#     print(r)
-#
-#
-# notSquareMatrix = [[2,2], [-2,1], [18,0]]
-# squareMatrix = [[2,2,1], [-2,1,2], [18,0,0]]
-# modifiedGS(notSquareMatrix)
-
-# print(modifiedGS([[1,2,3], [4,5,6], [7,8,9]]))
-
 def printSystem(A, b):
     """
     prints the system of equations in augmented matrix form
@@ -263,10 +181,12 @@ def printSystem(A, b):
     for i in range(len(A)):
         print(str(A[i]) + " | " + str(b[i]))
 
-
+#A is a list of row vectors
+#works
 def gaussianEliminate(A, b):
     """
-    runs gaussian elimination on the system of equations represented by members A and b of this class
+    Runs gaussian elimination on the system of equations represented by matrix A and vector b
+
     """
     # do the gaussian elimination
     # note this changes the needed upper-triangular elements of A, but does not change the lower-triangular elements
@@ -282,28 +202,30 @@ def gaussianEliminate(A, b):
         for j in range(0, i):
             A[i][j] = 0
 
-
+#A is a list of row vectors
+#works
 def backSubstitute(A, b):
+    """
+        after gaussian elimination, this solves the system using back-substitution
+    """
     gaussianEliminate(A, b)
-    """
-    after gaussian elimination, this solves the system using back-substitution
-    """
+    x = copy.deepcopy(b)
+
     for i in range(len(A) - 1, -1, -1):
         x[i] = b[i]
         for j in range(i + 1, len(A)):
             x[i] = x[i] - A[i][j] * x[j]
         x[i] = x[i] / A[i][i]
+    return x
 
 
-if __name__ == "__main__":
-    A = [
-        [1, 2, 1, -1],
-        [3, 2, 4, 4],
-        [4, 4, 3, 4],
-        [2, 0, 1, 5]
-    ]
-    b = [5, 16, 22, 15]
-    x = [0, 0, 0, 0]
+A = [
+    [1, 2, 1, -1],
+    [3, 2, 4, 4],
+    [4, 4, 3, 4],
+    [2, 0, 1, 5]
+]
+b = [5, 16, 22, 15]
 
-    backSubstitute(A, b)
-    print("Answer: " + str(x))
+x = backSubstitute(A, b)
+print("Answer: " + str(x))
