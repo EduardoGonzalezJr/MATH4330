@@ -208,7 +208,7 @@ def backSubstitute(A, b):
     """
         after gaussian elimination, this solves the system using back-substitution
     """
-    gaussianEliminate(A, b)
+    # gaussianEliminate(A, b)
     x = copy.deepcopy(b)
 
     for i in range(len(A) - 1, -1, -1):
@@ -231,8 +231,10 @@ x = backSubstitute(A, b)
 # print("Answer: " + str(x))
 
 def printMatrix(A):
+    copyA = copy.deepcopy(A)
     print('\n'.join([''.join(['{:13.5g}'.format(item) for item in row])
-      for row in A]))
+      for row in copyA]))
+
 
 testMatrix = [[1,2,3], [4,5,6], [7,8,9]]
 printMatrix(testMatrix)
@@ -310,6 +312,31 @@ def gsMod(A):
     printMatrix(R)
     return Q, R
 
-x = [1,2,3,4,5]
-x = vandermonde4(x)
-gsMod(x)
+
+def d4interpolation(B):
+    for i in range(len(B),5):
+        B.append(0);
+    print((B[4]),"x**4 +",B[3],"x**3+",B[2],"x**2+",B[1],"x+",B[0])
+
+
+
+
+# x = [1,2,3,4,5]
+# A = vandermonde4(x)
+# y = [6,7,8,9,10]
+# print("Inputs: \n\tx: ",x,"\n\ty: ",y)
+# print("Vandermonde matrix (fourth degree):")
+# printMatrix(A)
+# Q,R = gsMod(A)
+# print("Inverse of Q:")
+# inverseQ = transpose(Q)
+# printMatrix(inverseQ)
+#
+#
+# b = matrixVectorMult(inverseQ,y)
+#
+# B = backSubstitute(R, b)
+# print(B)
+# print("\nBacksubstitution solution:\n",B)
+# print("\nInterpolating polynomial (4th degree): ")
+# d4interpolant(B)
