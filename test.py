@@ -1,16 +1,7 @@
 
 """-----------------------------------------------"""
 """----------------BASIC FUNCTIONS----------------"""
-"""-----------------------------------------------"""
-def deg4Vandermonde(x): 
-    result=[]
-    for exp in range(5):
-        temp=[]
-        for element in range(len(x)):
-            temp.append(x[element]**exp)
-        result.append(temp)
-    return result   
-
+"""-----------------------------------------------"""  
 def transpose(A):
     result=[]
     for i in range(len(A)):
@@ -77,6 +68,14 @@ def matrixVectorMult(A, x):
 """-----------------------------------------------"""
 """-------------LEAST SQUARE FUNCTIONS------------"""
 """-----------------------------------------------"""
+def deg4Vandermonde(x): 
+    result=[]
+    for exp in range(5):
+        temp=[]
+        for element in range(len(x)):
+            temp.append(x[element]**exp)
+        result.append(temp)
+    return result 
 
 def gsMod(A):
     length = len(A)
