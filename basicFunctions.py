@@ -1,7 +1,5 @@
 import copy
 
-
-
 #works
 def two_norm(vector):
     """
@@ -19,7 +17,6 @@ def two_norm(vector):
     for element in range(len(vector)):
         result = result + (vector[element] ** 2)
     result = result ** (1 / 2)
-    print(result)
     return result
 
 
@@ -64,10 +61,6 @@ def transpose(matrix):
             temp.append(matrix[element][i])
         result.append(temp)
     return result
-
-
-complexMatrix = [[1+2j,2+1j,3], [4,5,6], [7,8,9]]
-matrix = [[1, 2], [3, 4], [5, 6]]
 
 
 #works
@@ -152,65 +145,21 @@ def dotProduct(vector1, vector2):
     return result
 
 
-def zeroMatrix(matrix):
-    """
-    Computes the zero matrix with the same dimensions as the matrix passed in
 
-    This function takes a matrix, has a result matrix do a deep copy of the matrix, then sets every element in the
-    result matrix to 0
-
-    Args:
-        A matrix that is represented as a list of column vectors
-
-    Returns:
-        A zero matrix as a list of column vectors
-    """
-    result = copy.deepcopy(matrix)
-    index = -1
-    for column in matrix:
-        index += 1
-        for element in range(len(column)):
-            result[index][element] = 0
-    return result
-
-
-def printSystem(A, b):
-    """
-    prints the system of equations in augmented matrix form
-    """
-    for i in range(len(A)):
-        print(str(A[i]) + " | " + str(b[i]))
-
-#A is a list of row vectors
-#works
-def gaussianEliminate(A, b):
-    """
-    Runs gaussian elimination on the system of equations represented by matrix A and vector b
-
-    """
-    # do the gaussian elimination
-    # note this changes the needed upper-triangular elements of A, but does not change the lower-triangular elements
-    m = 0
-    for i in range(len(A) - 1):
-        for j in range(i + 1, len(A)):
-            m = A[j][i] / A[i][i]
-            for k in range(i + 1, len(A)):
-                A[j][k] = A[j][k] - m * A[i][k]
-            b[j] = b[j] - m * b[i]
-    # actually zero out the lower-triangular elements
-    for i in range(1, len(A)):
-        for j in range(0, i):
-            A[i][j] = 0
 
 #A is a list of row vectors
 #works
 def backSubstitute(A, b):
     """
-        after gaussian elimination, this solves the system using back-substitution
-    """
-    # gaussianEliminate(A, b)
-    x = copy.deepcopy(b)
+        this solves the system using back-substitution
 
+        Args:
+            A: a matrix represented as a list of row vectors
+            b: a vector represented as a list of numbers
+        Returns:
+                x: a vector represented as a list of numbers for which Ax=b
+    """
+    x = copy.deepcopy(b)
     for i in range(len(A) - 1, -1, -1):
         x[i] = b[i]
         for j in range(i + 1, len(A)):
@@ -219,25 +168,40 @@ def backSubstitute(A, b):
     return x
 
 
-A = [
-    [1, 2, 1, -1],
-    [3, 2, 4, 4],
-    [4, 4, 3, 4],
-    [2, 0, 1, 5]
-]
-b = [5, 16, 22, 15]
-
-x = backSubstitute(A, b)
-# print("Answer: " + str(x))
-
+#works
 def printMatrix(A):
+    """
+    prints out a given matrix in a nice format
+
+    prints out the matrix given using some special formatting. It first must do a deep copy of the matrix and compute the transpose
+    of the matrix in order for it to print out properly
+
+    Args:
+        A matrix represented as a list of column vectors
+
+    Returns:
+        Nothing. It does print out a matrix in a nice format
+    """
     copyA = copy.deepcopy(A)
+    copyA = transpose(copyA)
     print('\n'.join([''.join(['{:13.5g}'.format(item) for item in row])
       for row in copyA]))
+#works
+def printQorR(matrix):
+    """
+    prints out a given matrix, Q or R, in a nice format
 
+    prints out the matrix given using some special formatting
 
-testMatrix = [[1,2,3], [4,5,6], [7,8,9]]
-printMatrix(testMatrix)
+    Args:
+        A matrix, Q or R, represented as a list of column vectors
+
+    Returns:
+        Nothing. It does print out a matrix in a nice format
+    """
+    print('\n'.join([''.join(['{:13.5g}'.format(item) for item in row])
+        for row in matrix]))
+
 
 #works
 def vectorSubtraction(x,y):
@@ -282,11 +246,21 @@ def matrixVectorMult(A, x):
             result[i] = result[i] + (A[i][j] * x[j])
     return result
 
-testVector = [1,2,3]
-print(matrixVectorMult(testMatrix, testVector))
 
 
 def gsMod(A):
+    """
+    Computes Q and R from A using Modified Gram-Schmidt
+
+    This function uses orthogonal decomposition and normalization to compute Q and R
+
+    Args:
+        A: A matrix represented as a list of column vectors
+
+    Returns:
+        Q: A unitary matrix represented as a list of column vectors
+        R: an upper triangular matrix represented as a list of column vectors
+    """
     length = len(A)
     R = [0] * length
     Q = [0] * length
@@ -307,36 +281,23 @@ def gsMod(A):
             x = scalarVectorMulti(R[j][k], Q[j])
             V[k] = vectorSubtraction(V[k], x)
     print("Q (actual):")
-    printMatrix(Q)
+    printQorR(Q)
     print("R (actual):")
-    printMatrix(R)
+    printQorR(R)
     return Q, R
 
 
 def d4interpolation(B):
+    """
+    computes the degree 4 interpolations
+
+    Take the summation of every column of B timest the vector x with its corresponding exponent
+
+    Args:
+        B: A vector represented as a list of numbers
+    Returns:
+        Nothing. It prints out the polynomial of degree 4 of B
+    """
     for i in range(len(B),5):
         B.append(0);
     print((B[4]),"x**4 +",B[3],"x**3+",B[2],"x**2+",B[1],"x+",B[0])
-
-
-
-
-# x = [1,2,3,4,5]
-# A = vandermonde4(x)
-# y = [6,7,8,9,10]
-# print("Inputs: \n\tx: ",x,"\n\ty: ",y)
-# print("Vandermonde matrix (fourth degree):")
-# printMatrix(A)
-# Q,R = gsMod(A)
-# print("Inverse of Q:")
-# inverseQ = transpose(Q)
-# printMatrix(inverseQ)
-#
-#
-# b = matrixVectorMult(inverseQ,y)
-#
-# B = backSubstitute(R, b)
-# print(B)
-# print("\nBacksubstitution solution:\n",B)
-# print("\nInterpolating polynomial (4th degree): ")
-# d4interpolant(B)

@@ -15,7 +15,7 @@ if __name__ == "__main__":
 
     print("Inverse of Q:")
     inverseQ = BF.conjugateTranspose(Q) #STEP 3
-    BF.printMatrix(inverseQ)
+    BF.printQorR(inverseQ)
 
 
     b = BF.matrixVectorMult(inverseQ,y)
