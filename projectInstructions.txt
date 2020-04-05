@@ -1,5 +1,4 @@
-For your project you will need to implement the algorithm from problem 2 of the
- second exam's take home portion. 
+For your project you will need to implement the algorithm from problem 2
 
 
 You are not allowed to use any built in math functions other than the standard 
