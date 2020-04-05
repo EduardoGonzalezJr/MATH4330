@@ -1,0 +1,63 @@
+For your project you will need to implement the algorithm from problem 2 of the
+ second exam's take home portion. 
+
+
+You are not allowed to use any built in math functions other than the standard 
+scalar operations as covered in class. 
+
+
+It is not required, but recommended that you write 2 seperate files. 
+One should
+ be called basicFunctions.py and include all of the subalgorithms you would use
+ in your overall algorithm. 
+The second should be called leastSquares.py and 
+should import your basicFunctions.py file to make use of all of your
+ subalgorithms. 
+
+
+Once written, you must upload your work to a github repo as covered in class. 
+
+
+
+
+Rules:
+
+Your github name must be of the form FirstNameLastName or
+FirstNameLastNameM4330, or some similar easily identifiable name. 
+
+
+You are allowed to work in groups. If you work in a group, you should have only
+ one repo. 
+Your repo should include a file called "group.txt" which is a list of
+ the members of our group. 
+
+
+The project is due May 8th by 11:59 pm. 
+
+
+All functions must include a docstring. 
+I have included an example below. 
+
+
+
+def functionName(arg01, arg02, ....):
+  
+'''One line description of what your function does
+
+
+  Quick paragraph about how your function works. 
+
+  
+Args:
+    arg01: Description of arg01
+    
+arg02: Description of arg02
+    .
+    .
+    .
+
+  
+Returns:
+    Explain what the output of your function is. 
+
+  '''
